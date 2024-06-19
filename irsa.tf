@@ -61,14 +61,14 @@ resource "aws_iam_role_policy" "parameter_store_access" {
 }
 
 resource "aws_iam_role_policy" "additional_service_policy" {
-  for_each = var.additional_service_policies
-  name   = "additional-service-policy-${index(var.additional_service_policies, each.value)}"
+  count = var.additional_service_policies != null ? 1 : 0
+  name   = "additional-service-policy"
   role   = aws_iam_role.irsa.name
 
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
-      "${each.value}"
+      var.additional_service_policies
     ]
   })
 }
