@@ -25,7 +25,7 @@ variable "account" {
 
 variable "additional_service_policies" {
   description = "Additional service policies to attach to the IAM role"
-  type        = list(string)
+  type        = string
 }
 
 variable "tags" {
