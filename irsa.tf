@@ -9,11 +9,11 @@ resource aws_iam_role "irsa" {
         Effect = "Allow"
         Sid    = ""
         Principal = {
-          Federated = var.OIDCArn
+          Federated = var.oidc_arn
         }
         Condition = {
           StringLike = {
-            "${var.issuerHostPath}" = "system:serviceaccount:${var.namespace}:*"
+            "${var.issuer_host_path}" = "system:serviceaccount:${var.namespace}:*"
           }
         }
       }

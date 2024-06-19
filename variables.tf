@@ -1,28 +1,14 @@
-variable "owner" {
-  description = "The owner of the resources"
-  type        = string
-}
-
-variable "cost_center" {
-  description = "The cost center for the resources"
-  type        = string
-  validation {
-    condition     = contains(["b2b"], var.cost_center)
-    error_message = "Valid values for .cost_center (b2b)."
-  }
-}
-
 variable "irsa_role_name" {
   description = "The name of the IAM role for IRSA"
   type        = string
 }
 
-variable "OIDCArn" {
+variable "oidc_arn" {
   description = "The ARN of the OIDC provider"
   type        = string
 }
 
-variable "issuerHostPath" {
+variable "issuer_host_path" {
   description = "The issuer host path for the OIDC provider"
   type        = string
 }
