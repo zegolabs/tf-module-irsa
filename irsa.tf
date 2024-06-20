@@ -1,5 +1,6 @@
-resource aws_iam_role "irsa" {
-  name = var.irsa_role_name
+resource "aws_iam_role" "irsa" {
+  name        = var.irsa_role_name
+  description = "${var.irsa_role_name} IRSA"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -23,15 +24,15 @@ resource aws_iam_role "irsa" {
 }
 
 resource "aws_iam_role_policy" "parameter_store_access" {
-  name   = "parameter-store-secrets-access"
-  role   = aws_iam_role.irsa.name
+  name = "parameter-store-secrets-access"
+  role = aws_iam_role.irsa.name
 
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
-        Effect   = "Allow"
-        Action   = [
+        Effect = "Allow"
+        Action = [
           "ssm:GetParametersByPath",
           "ssm:GetParameters",
           "ssm:GetParameter"
@@ -41,8 +42,8 @@ resource "aws_iam_role_policy" "parameter_store_access" {
         ]
       },
       {
-        Effect   = "Allow"
-        Action   = [
+        Effect = "Allow"
+        Action = [
           "kms:Decrypt"
         ]
         Resource = [
@@ -62,8 +63,8 @@ resource "aws_iam_role_policy" "parameter_store_access" {
 
 resource "aws_iam_role_policy" "additional_service_policy" {
   count = var.additional_service_policies != null ? 1 : 0
-  name   = "additional-service-policy"
-  role   = aws_iam_role.irsa.name
+  name  = "additional-service-policy"
+  role  = aws_iam_role.irsa.name
 
   policy = jsonencode({
     Version = "2012-10-17"
