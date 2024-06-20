@@ -66,5 +66,5 @@ resource "aws_iam_role_policy" "additional_service_policy" {
   name  = "additional-service-policy"
   role  = aws_iam_role.irsa.name
 
-  policy = var.additional_service_policies
+  policy = jsonencode(var.additional_service_policies)
 }
